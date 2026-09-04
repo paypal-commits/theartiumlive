@@ -1,31 +1,74 @@
-import React from "react";
-import { ArrowRight, Sparkles } from "lucide-react";
-// Import our custom generated asset reflecting luxury Georgia atrium style
-import heroBg from "../assets/images/venue_hero_bg_1780684781429.png";
+import React, { useState, useRef } from "react";
+import { ArrowRight, Sparkles, Volume2, VolumeX } from "lucide-react";
+import posterImg from "../assets/images/venue_hero_bg_1780684781429.png";
+
+const HERO_VIDEO_URL =
+  "https://rpdfmco43awh1mfi.public.blob.vercel-storage.com/The_Atrium_hosts_entertainment_e%E2%80%A6_202609042221.mp4";
 
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
 }
 
 export default function Hero({ onNavigate }: HeroProps) {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+      if (!nextMuted) {
+        videoRef.current.play().catch((err) => {
+          console.warn("Audio autoplay policy triggered:", err);
+        });
+      }
+    }
+  };
+
   return (
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28 pb-16"
     >
-      {/* Underlying high-res custom generated glass-atrium render backdrop */}
+      {/* Background Video with poster fallback */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroBg}
-          alt="The Atrium Live Venue Space"
-          className="w-full h-full object-cover scale-102 transform duration-[10s] ease-out select-none"
-          referrerPolicy="no-referrer"
+        <video
+          ref={videoRef}
+          src={HERO_VIDEO_URL}
+          poster={posterImg}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover select-none"
         />
-        {/* Multilayer linear and radial gradient shields for premium contrast and absolute readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-space-950/70 via-space-950/85 to-space-950" />
-        <div className="absolute inset-0 bg-gradient-to-r from-space-950 via-space-950/40 to-space-950/80" />
+        {/* Multilayer linear and radial gradient shields balanced for 25% higher video visibility and crisp text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-space-950/50 via-space-950/60 to-space-950/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-space-950/65 via-space-950/30 to-space-950/65" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,135,43,0.06)_0%,transparent_70%)]" />
       </div>
+
+      {/* Floating Audio Mute / Unmute Toggle Button */}
+      <button
+        id="hero-audio-toggle"
+        onClick={toggleMute}
+        type="button"
+        aria-label={isMuted ? "Unmute video sound" : "Mute video sound"}
+        title={isMuted ? "Click to unmute sound" : "Click to mute sound"}
+        className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20 flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/20 hover:border-gold-500/60 text-white transition-all duration-300 shadow-2xl group cursor-pointer active:scale-95"
+      >
+        <div className="w-6 h-6 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 group-hover:text-gold-300 group-hover:bg-gold-500/30 transition-colors">
+          {isMuted ? (
+            <VolumeX className="w-3.5 h-3.5 text-stone-400 group-hover:text-white transition-colors" />
+          ) : (
+            <Volume2 className="w-3.5 h-3.5 text-gold-400 animate-pulse" />
+          )}
+        </div>
+        <span className="text-[11px] font-mono uppercase tracking-widest text-white/80 group-hover:text-white pr-1">
+          {isMuted ? "Muted" : "Sound On"}
+        </span>
+      </button>
 
       {/* Atmospheric particles */}
       <div className="absolute top-[25%] left-[25%] w-[180px] h-[180px] rounded-full bg-gold-500/10 filter blur-[70px] mix-blend-screen pointer-events-none animate-pulse-slow" />
@@ -39,13 +82,13 @@ export default function Hero({ onNavigate }: HeroProps) {
             <span>Stone Mountain, GA • 5479 Memorial Drive</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-tight tracking-tight uppercase">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-tight tracking-tight uppercase drop-shadow-lg">
             Where <span className="italic font-light text-gold-500">30+ Years</span> of <br className="hidden sm:inline" />
             iconic moments take <br className="hidden sm:inline" />
             center stage
           </h1>
 
-          <p className="text-base sm:text-lg text-white/75 max-w-3xl mx-auto font-sans font-light leading-relaxed">
+          <p className="text-base sm:text-lg text-white/90 max-w-3xl mx-auto font-sans font-light leading-relaxed drop-shadow">
             Welcome to <span className="text-gold-200 font-medium">The Atrium</span> (booktheatrium.com) — Atlanta's premier performing arts and multi-venue entertainment center. Featuring dual grand event halls separated by a central sound-isolated lobby bar, a main concert stage accommodating up to 1,500 guests, a dedicated fashion runway, commercial kitchen, and film soundstages.
           </p>
 
