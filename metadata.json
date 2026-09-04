@@ -1,0 +1,6 @@
+{
+  "name": "The Atrium Live",
+  "description": "The Atrium (booktheatrium.com) - Atlanta's premier multi-venue performing arts & event center in Stone Mountain, GA with over 30 years of entertainment legacy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
