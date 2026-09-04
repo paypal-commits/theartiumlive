@@ -19,16 +19,13 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Brand Logo in Footer */}
           <div
             onClick={() => onNavigate("hero")}
-            className="flex items-center gap-2.5 cursor-pointer group justify-center"
+            className="flex items-center cursor-pointer group justify-center"
           >
-            <div className="w-9 h-9 rounded-none bg-black border border-white/10 p-[1px]">
-              <div className="w-full h-full bg-[#0c0c0c] flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform" />
-              </div>
-            </div>
-            <span className="font-serif text-lg tracking-[0.2em] uppercase text-white">
-              THE ATRIUM <span className="font-mono font-light text-xs text-[#C5A059] ml-0.5">LIVE</span>
-            </span>
+            <img
+              src="/logo.png"
+              alt="The Atrium Performing Arts Center"
+              className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none drop-shadow-md"
+            />
           </div>
 
           {/* Quick links list */}

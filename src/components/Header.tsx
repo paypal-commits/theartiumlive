@@ -66,14 +66,11 @@ export default function Header({ activeSection, onNavigate }: HeaderProps) {
             onClick={() => handleItemClick("hero")}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-8 h-8 border-2 border-gold-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-              <span className="text-gold-500 font-bold text-xs italic">A</span>
-            </div>
-            <div>
-              <span className="font-serif text-lg tracking-widest uppercase text-white group-hover:text-gold-500 transition-colors">
-                The Atrium
-              </span>
-            </div>
+            <img
+              src="/logo.png"
+              alt="The Atrium Performing Arts Center"
+              className="h-9 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none drop-shadow-md"
+            />
           </div>
 
           {/* Desktop Navigation */}
